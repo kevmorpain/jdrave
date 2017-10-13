@@ -4,7 +4,7 @@ block content
   h1.
     User List
   ul
-    each player, i in playersList
+    each player, i in players
       li
         a(href='mailto:#{player.email}')= player.username
         form#formDeletePlayer(name='deleteplayer', method='post', action='/delete-player')

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 Add new game
+
+  form#formAddGame(name='addgame', method='post', action='/add-game')
+    input#inputGameName(type='text', placeholder='Name', name='name')
+    button#btnSubmit(type='submit') submit

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Add new character
+
+  form#formAddCharacter(name='addcharacter', method='post', action='/add-character')
+    input#inputCharacterName(type='text', placeholder='Name', name='name')
+    textarea#inputCharacterStory(name='story') ...
+    input#inputGame(type='number', placeholder='Game', name='game')
+    input#inputPlayer(type='number', placeholder='Player', name='player_id')
+
+    button#btnSubmit(type='submit') submit

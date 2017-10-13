@@ -2,15 +2,10 @@ var express = require('express')
 var router = express.Router()
 var Player = require('../models/models').Player
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-})
-
-router.get('/playerslist', function(req, res) {
+router.get('/players', function(req, res) {
   Player.find({}, function (err, players) {
-  	res.render('playerslist', {
-  		playersList: players
+  	res.render('players', {
+  		players: players
   	})
   })
 })
@@ -21,12 +16,11 @@ router.get('/new-player', function (req, res) {
 
 router.post('/add-player', function (req, res) {
   var params = req.body
-
-  new Player(params).save(function (err) {
+  Player(params).save(function (err) {
   	if (err) {
-		throw err
+  	  throw err
   	} else {
-  		res.redirect('playerslist')
+  	  res.redirect('players')
   	}
   })
 })
@@ -34,15 +28,32 @@ router.post('/add-player', function (req, res) {
 router.post('/delete-player', function (req, res) {
   console.log(req.body)
   var id = req.body.id
-  console.log(id)
   Player.remove({
   	_id: id
   }, function (err) {
   	  if (err) {
   	  	throw err
   	  } else {
-	  	res.redirect('playerslist')
+	  	res.redirect('players')
 	  }
+  })
+})
+
+
+
+router.post('/user/login', (req, res) => {
+  var params = req.body
+
+  Player.findOne({username: params.username, password: params.password}, (err, player) => {
+    if (err) {
+      res.status(500).send({ error: "Une erreur inattendue vient de surgir." })
+    }
+    else if (!player){
+      res.status(422).send({ error: "N'aurais-tu pas oublié tes identifiants ?" })
+    }
+    else {
+      res.json('Connexion réussie !')
+    }
   })
 })
 
