@@ -2,11 +2,15 @@ var express = require('express')
 var router = express.Router()
 var Player = require('../models/models').Player
 
-router.get('/players', function(req, res) {
+router.get('/', function(req, res) {
   Player.find({}, function (err, players) {
-  	res.render('players', {
-  		players: players
-  	})
+  	res.json(players.map(player => {
+      return {
+    		id: player._id,
+        username: player.username,
+        email: player.email
+      }
+  	}))
   })
 })
 

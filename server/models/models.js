@@ -139,7 +139,7 @@ Feature.plugin(autoIncrement.plugin, 'FeatureId')
 var Models = {
   Player: mongoose.model('Player', Player),
   Game: mongoose.model('Game', Game),
-  Character: mongoose.model('Character', Character)
+  Character: mongoose.model('Character', Character),
   Feature: mongoose.model('Feature', Feature)
 }
 
