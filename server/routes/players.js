@@ -14,31 +14,26 @@ router.get('/', function(req, res) {
   })
 })
 
-router.get('/new-player', function (req, res) {
-  res.render('new_player')
-})
-
-router.post('/add-player', function (req, res) {
+router.post('/', function (req, res) {
   var params = req.body
-  Player(params).save(function (err) {
+  Player(params).save(function (err, post) {
   	if (err) {
   	  throw err
   	} else {
-  	  res.redirect('players')
+  	  res.status(201).json(post)
   	}
   })
 })
 
-router.post('/delete-player', function (req, res) {
-  console.log(req.body)
-  var id = req.body.id
+router.delete('/:id', function (req, res) {
+  var id = req.params.id
   Player.remove({
   	_id: id
   }, function (err) {
   	  if (err) {
   	  	throw err
   	  } else {
-	  	res.redirect('players')
+	  	  res.status(204).send()
 	  }
   })
 })

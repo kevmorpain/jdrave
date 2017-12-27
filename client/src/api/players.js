@@ -1,8 +1,13 @@
 import api from '@/api'
 
 export default {
-  create (credentials) {
-    return api.post('/add-player', {user: credentials})
+  add (newPlayer) {
+    return api.post('/players', newPlayer)
+  },
+
+  delete (id) {
+    console.log(id)
+    return api.delete(`/players/${id}`)
   },
 
   fetch () {
