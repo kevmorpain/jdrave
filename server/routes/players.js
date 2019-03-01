@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var Player = require('../models/models').Player
 
+// Get all players
 router.get('/', function(req, res) {
   Player.find({}, function (err, players) {
   	res.json(players.map(player => {
@@ -14,6 +15,39 @@ router.get('/', function(req, res) {
   })
 })
 
+// Get single player
+router.get('/:id', function (req, res) {
+  var id = req.params.id
+  Player.findById(id, function (err, player) {
+  	res.json({
+    		id: player._id,
+        username: player.username,
+        email: player.email
+      })
+  	})
+})
+
+// Update player params
+router.put('/:id', function (req, res) {
+  const id = req.params.id
+  const params = req.body
+  Player.findByIdAndUpdate(id, params, {new: true}, function(err, player) {
+    if (err) {
+      return res.status(500).send({ error: err });
+    }
+    return Player.find({}, function (err, players) {
+    	res.json(players.map(player => {
+        return {
+      		id: player._id,
+          username: player.username,
+          email: player.email
+        }
+    	}))
+    })
+  });
+})
+
+// Create new player
 router.post('/', function (req, res) {
   var params = req.body
   Player(params).save(function (err, post) {
@@ -25,6 +59,7 @@ router.post('/', function (req, res) {
   })
 })
 
+// Delete player
 router.delete('/:id', function (req, res) {
   var id = req.params.id
   Player.remove({

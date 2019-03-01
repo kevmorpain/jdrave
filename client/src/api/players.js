@@ -12,5 +12,13 @@ export default {
 
   fetch () {
     return api.get('/players')
+  },
+
+  fetchOne (id) {
+    return api.get(`/players/${id}`)
+  },
+
+  update (id, params) {
+    return api.put(`/players/${id}`, params)
   }
 }

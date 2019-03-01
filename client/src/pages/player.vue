@@ -1,9 +1,8 @@
 <template>
   <section>
     <ul>
-      <li v-for='player in players' :key='player.id'>
+      <li>
         <strong>{{ player.username }}</strong> - {{ player.email }}
-        <button @click='deletePlayer(player.id)'>x</button>
       </li>
     </ul>
 
@@ -24,37 +23,41 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
-    name: 'players',
-
-    data () {
-      return {
-        username: '',
-        email: ''
+    name: 'player',
+    props: {
+      playerId: {
+        type: [String, Number]
       }
     },
 
-    created () {
-      this.fetchPlayers()
+    data () {
+      return {
+        username: null,
+        email: null
+      }
     },
 
     computed: {
-      ...mapState('players', {
-        players: ({ list }) => list
-      })
+      ...mapGetters({
+        getPlayerById: 'players/getPlayerById'
+      }),
+
+      player () {
+        return this.getPlayerById(this.playerId)
+      }
     },
 
     methods: {
       ...mapActions({
-        fetchPlayers: 'players/fetch',
-        addPlayer: 'players/add',
-        deletePlayer: 'players/delete'
+        update: 'players/update'
       }),
 
       submit () {
         const { username, email } = this
-        this.addPlayer({username, email})
+        const params = { username, email }
+        this.update(params)
       }
     }
   }
