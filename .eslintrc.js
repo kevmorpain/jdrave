@@ -5,17 +5,11 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: '@typescript-eslint/parser',
-    extraFileExtensions: ['.vue']
+    parser: 'babel-eslint'
   },
   extends: [
     '@nuxtjs',
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:json/recommended',
     'plugin:nuxt/recommended'
-  ],
-  plugins: [
-    '@typescript-eslint'
   ],
   // add your custom rules here
   rules: {
