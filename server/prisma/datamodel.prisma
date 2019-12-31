@@ -1,0 +1,46 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  characters: [Character!]!
+  role: [UserRole!]! @scalarList(strategy: RELATION)
+  manage: [Game!]! @relation(name: "GMinGame")
+  play: [Game!]! @relation(name: "PlayersInGame")
+}
+
+type Character {
+  id: ID! @id
+  name: String!
+  player: User!
+  isNonPlayable: Boolean! @default(value: false)
+  status: Status! @default(value: DRAFT)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  games: [Game!]!
+}
+
+type Game {
+  id: ID! @id
+  title: String! @unique
+  description: String
+  gameMaster: User! @relation(name: "GMinGame")
+  players: [User!]! @relation(name: "PlayersInGame")
+  characters: [Character!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  lastGameAt: DateTime
+  status: Status! @default(value: DRAFT)
+}
+
+enum UserRole {
+  Admin
+  Player
+  GameMaster
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}

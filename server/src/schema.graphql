@@ -1,0 +1,59 @@
+type Query {
+  users: [User!]!
+  characters(playerId: String, statusFilter: String): [Character!]!
+  games: [Game!]!
+}
+
+type Mutation {
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  createCharacter(name: String!, isNonPlayable: Boolean): Character
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  characters: [Character!]!
+  role: [UserRole!]!
+  manage: [Game!]!
+  play: [Game!]!
+}
+
+type Character {
+  id: ID!
+  name: String!
+  player: User!
+  isNonPlayable: Boolean
+  status: Status!
+  games: [Game!]!
+}
+
+type Game {
+  id: ID!
+  title: String!
+  description: String
+  gameMaster: User!
+  players: [User!]!
+  characters: [Character!]!
+  createdAt: String
+  lastGameAt: String
+  status: Status!
+}
+
+enum UserRole {
+  Admin
+  Player
+  GameMaster
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}

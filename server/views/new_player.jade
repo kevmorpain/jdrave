@@ -1,9 +1,0 @@
-extends layout
-
-block content
-  h1 Add new player
-
-  form#formAddPlayer(name='addplayer', method='post', action='/add-player')
-    input#inputUserName(type='text', placeholder='Username', name='username')
-    input#inputUserEmail(type='text', placeholder='Email', name='email')
-    button#btnSubmit(type='submit') submit
