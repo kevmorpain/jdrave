@@ -19,7 +19,11 @@
     "@vue/composition-api": "^0.3.4",
     "humps": "^2.0.1",
     "nuxt": "^2.0.0",
-    "vue-i18n": "^8.15.3"
+    "nuxt-typed-vuex": "^0.1.15",
+    "vue-class-component": "^7.1.0",
+    "vue-i18n": "^8.15.3",
+    "vue-property-decorator": "^8.3.0",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.4",
@@ -37,6 +41,8 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "jest": "^24.1.0",
     "node-sass": "^4.13.0",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
     "sass-loader": "^8.0.0",
     "vue-jest": "^4.0.0-0"
   }

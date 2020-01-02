@@ -1,6 +1,10 @@
+require('dotenv').config()
 
 export default {
   mode: 'universal',
+  server: {
+    port: 5000
+  },
   /*
   ** Headers of the page
   */
@@ -33,7 +37,10 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
+    'nuxt-typed-vuex'
   ],
   /*
   ** Nuxt.js modules
@@ -42,8 +49,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
     '@nuxtjs/style-resources'
   ],
   styleResources: {
@@ -54,6 +59,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.API_URL
   },
   /*
   ** Build configuration
@@ -62,6 +68,9 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    transpile: [
+      /typed-vuex/
+    ],
     extend (config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
